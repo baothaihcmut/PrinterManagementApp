@@ -1,0 +1,41 @@
+server:
+  port: ${SERVER_PORT:8080}
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+jwt:
+  access_token:
+    sign_key: ${JWT_ACCESSTOKEN_KEY}
+    expiration: 3
+  refresh_token:
+    sign_key: ${JWT_REFRESHTOKEN_KEY}
+    expiration: 7
+minio:
+  url: http://localhost:9000
+  access_key: ${MINIO_ACCESS_KEY}
+  secret_key: ${MINIO_SECRET_KEY}
+  bucket: ${MINIO_BUCKET_NAME}
+admin:
+  email: ${ADMIN_EMAIL}
+  phoneNumber: ${ADMIN_PHONENUMBER}
+  firstName: thai 
+  lastName: bao
+outbound: 
+  identity:
+    client_id: ${GOOGLE_OAUTH2_CLIENT_ID}
+    client_secret: ${GOOGLE_OAUTH2_CLIENT_ID}
+    redirect_uri: ${GOOGLE_OAUTH2_REDIRECT_URI}
+    grant_type: "authorization_code"
+momo:
+  partnerCode: ${MOMO_PARTNER_CODE}
+  accessKey: ${MOMO_ACCESS_KEY}
+  secretKey: ${MOMO_SECRET_KEY}
+  endpoint: "https://test-payment.momo.vn/v2/gateway/api/create" 
+  queryEndpoint: "https://test-payment.momo.vn/v2/gateway/api/query"

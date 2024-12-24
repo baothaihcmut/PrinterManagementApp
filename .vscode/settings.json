@@ -1,0 +1,7 @@
+{
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.project.sourcePaths": [
+        "api-ddd/controller/src/main/java"
+    ],
+    "java.compile.nullAnalysis.mode": "automatic"
+}

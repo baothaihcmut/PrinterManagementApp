@@ -1,0 +1,11 @@
+dependencies {
+    implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-validation:2.4.5"
+    implementation "org.springframework.boot:spring-boot-starter-security"
+    implementation "org.springframework.boot:spring-boot-starter-oauth2-resource-server"
+    implementation "org.springframework.security:spring-security-core:${springSecurityVersion}"
+    implementation "com.nimbusds:nimbus-jose-jwt:${nimbusVersion}"
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.6'  // Ensure the version matches your Jackson version
+    implementation project(":application")
+    implementation project(":domain")
+}
