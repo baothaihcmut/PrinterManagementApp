@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.printerapp.application.queries.customers.FindDocumentQuery;
 import com.printerapp.application.queries.transactions.FindTransactionQuery;
-import com.printerapp.application.queries.transactions.SearchTransactionQuery;
 import com.printerapp.application.results.cusomers.CustomerDocumentResult;
-import com.printerapp.application.results.cusomers.CustomerTransactionResult;
 import com.printerapp.application.services.CustomerService;
 import com.printerapp.domain.aggregates.user.value_objects.UserId;
 import com.printerapp.domain.common.pagination.PaginatedParam;
@@ -65,24 +63,6 @@ public class CustomerController {
                                                 .paginatedParam(PaginatedParam.builder().page(page).size(size).build())
                                                 .build());
                 return AppResponse.initRespose(HttpStatus.OK, true, "Get transaction of customer success", res);
-        }
-
-        @GetMapping("/transactions/search")
-        @PreAuthorize("hasRole('ROLE_customer')")
-        public ResponseEntity<AppResponse> searchTransaction(
-                        @RequestParam("search") String search,
-                        @RequestParam("status") PrintTransactionStatus status,
-                        @RequestParam(value = "sort", required = false) SortParam sortParam,
-                        @RequestParam(value = "page", defaultValue = "1") Integer page,
-                        @RequestParam(value = "size", defaultValue = "10") Integer size) {
-                PaginatedResult<CustomerTransactionResult> res = this.customerService
-                                .searchTransactionOfUser(SearchTransactionQuery.builder()
-                                                .search(search)
-                                                .status(status)
-                                                .sortParam(sortParam)
-                                                .paginatedParam(PaginatedParam.builder().page(page).size(size).build())
-                                                .build());
-                return AppResponse.initRespose(HttpStatus.OK, true, "Search transaction of customer success", res);
         }
 
 }

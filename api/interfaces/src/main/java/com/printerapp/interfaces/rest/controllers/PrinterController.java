@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.printerapp.application.queries.printers.FindAllTransactionOfPrinterQuery;
 import com.printerapp.application.queries.printers.FindPrinterQuery;
-import com.printerapp.application.queries.printers.SearchPrinterQuery;
 import com.printerapp.application.results.printers.PrinterEmployeeResult;
 import com.printerapp.application.results.printers.PrinterResult;
 import com.printerapp.application.services.PrinterService;
@@ -100,20 +99,6 @@ public class PrinterController {
         return AppResponse.initRespose(HttpStatus.OK, true, "Get printer success", printerResult);
     }
 
-    @GetMapping("/search")
-    @PreAuthorize("hasAnyRole('ROLE_admin')")
-    public ResponseEntity<AppResponse> searchPrinter(
-            @RequestParam("search") String search,
-            @RequestParam("status") PrinterStatus status,
-            @RequestParam(value = "sort", required = false) SortParam sortParam,
-            @RequestParam(value = "page", defaultValue = "1") Integer page,
-            @RequestParam(value = "size", defaultValue = "10") Integer size) {
-        PaginatedResult<PrinterResult> res = this.printerService.searchPrinter(SearchPrinterQuery.builder()
-                .search(search)
-                .status(status)
-                .sortParam(sortParam).paginatedParam(PaginatedParam.builder().size(size).page(page).build()).build());
-        return AppResponse.initRespose(HttpStatus.OK, true, "Get printer sucess", res);
-    }
 
     @GetMapping("/{id}/employees")
     public ResponseEntity<AppResponse> getAllEmployeeOfPrinter(@PathVariable("id") UUID printerId) {

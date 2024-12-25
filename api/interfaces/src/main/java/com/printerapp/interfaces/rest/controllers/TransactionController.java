@@ -19,8 +19,6 @@ import com.printerapp.application.queries.transactions.FindPrinterOfTransactionQ
 import com.printerapp.application.queries.transactions.FindTransactionByIdQuery;
 import com.printerapp.application.queries.transactions.FindTransactionQuery;
 import com.printerapp.application.queries.transactions.FindUserOfTransactionQuery;
-import com.printerapp.application.queries.transactions.SearchTransactionQuery;
-import com.printerapp.application.results.transactions.AdminTransactionResult;
 import com.printerapp.application.results.transactions.TransactionPrinterResult;
 import com.printerapp.application.results.transactions.TransactionResult;
 import com.printerapp.application.results.transactions.TransactionUserResult;
@@ -114,21 +112,6 @@ public class TransactionController {
                 return AppResponse.initRespose(HttpStatus.OK, true, "Get all transaction success", res);
         }
 
-        @GetMapping("/search")
-        @PreAuthorize("hasRole('ROLE_admin')")
-        public ResponseEntity<AppResponse> searchTransaction(
-                        @RequestParam("search") String search,
-                        @RequestParam("status") PrintTransactionStatus status,
-                        @RequestParam(value = "sort", required = false) SortParam sortParam,
-                        @RequestParam(value = "page", defaultValue = "1") Integer page,
-                        @RequestParam(value = "size", defaultValue = "10") Integer size) {
-                PaginatedResult<AdminTransactionResult> res = this.transactionService
-                                .searchTransaction(SearchTransactionQuery.builder().search(search).status(status)
-                                                .sortParam(sortParam)
-                                                .paginatedParam(PaginatedParam.builder().page(page).size(size).build())
-                                                .build());
-                return AppResponse.initRespose(HttpStatus.OK, true, "Get all transaction success", res);
-        }
 
         @GetMapping("/{role:customer|employee}/{id}")
         @PreAuthorize("hasRole('ROLE_admin')")

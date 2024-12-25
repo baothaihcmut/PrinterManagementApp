@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.printerapp.application.queries.employees.FindTransactionOfEmployeeQuery;
-import com.printerapp.application.queries.transactions.SearchTransactionQuery;
-import com.printerapp.application.results.employee.EmployeeTransactionResult;
 import com.printerapp.application.results.printers.PrinterResult;
 import com.printerapp.application.services.EmployeeService;
 import com.printerapp.domain.aggregates.printer.value_objects.PrinterId;
@@ -60,24 +58,6 @@ public class EmployeeController {
         return AppResponse.initRespose(HttpStatus.OK, true, "Get all transaction of employee by printer success", res);
     }
 
-    @GetMapping("/transactions/search")
-    @PreAuthorize("hasAnyRole('ROLE_employee')")
-    public ResponseEntity<AppResponse> searchAllTransactionOfEmployeeByPPrinter(
-            @RequestParam(value = "printer", required = false) UUID printerId,
-            @RequestParam(value = "status", required = false) PrintTransactionStatus status,
-            @RequestParam(value = "search") String search,
-            @RequestParam("sort") SortParam sortParam,
-            @RequestParam(value = "page", defaultValue = "1") Integer page,
-            @RequestParam(value = "size", defaultValue = "10") Integer size) {
-        PaginatedResult<EmployeeTransactionResult> res = this.employeeService.searchTransactionOfEmployee(
-                SearchTransactionQuery.builder().search(search)
-                        .printerId(new PrinterId(printerId))
-                        .status(status)
-                        .paginatedParam(PaginatedParam.builder().size(size).page(page).build())
-                        .sortParam(sortParam)
-                        .build());
-        return AppResponse.initRespose(HttpStatus.OK, true, "Get all transaction of employee by printer success", res);
-    }
 
     @GetMapping("/{id}/printers")
     public ResponseEntity<AppResponse> findAllPrinterOfEmployee(@PathVariable("id") UUID userId) {

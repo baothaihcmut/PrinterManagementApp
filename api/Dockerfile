@@ -9,5 +9,3 @@ COPY server/build/libs/server-1.0-SNAPSHOT.jar /app/app.jar
 # Expose the port your application will run on
 EXPOSE 8080
 
-# Run the Spring Boot application
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]

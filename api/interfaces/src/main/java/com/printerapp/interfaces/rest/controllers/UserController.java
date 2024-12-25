@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.printerapp.application.queries.users.FindUserByIdQuery;
 import com.printerapp.application.queries.users.FindUserQuery;
-import com.printerapp.application.queries.users.SearchUserQuery;
 import com.printerapp.application.results.users.AddEmployeeMailResult;
 import com.printerapp.application.results.users.UserResult;
 import com.printerapp.application.services.UserService;
@@ -72,18 +71,5 @@ public class UserController {
         return AppResponse.initRespose(HttpStatus.OK, true, "Find user sucess", res);
     }
 
-    @GetMapping("/search")
-    public ResponseEntity<AppResponse> searchUser(
-            @RequestParam("search") String search,
-            @RequestParam("role") Role role,
-            @RequestParam(value = "sort", required = false) SortParam sortParam,
-            @RequestParam(value = "page", defaultValue = "1") Integer page,
-            @RequestParam(value = "size", defaultValue = "10") Integer size) {
-        PaginatedResult<UserResult> res = this.userService.searchUser(SearchUserQuery.builder()
-                .search(search)
-                .role(role)
-                .sortParam(sortParam).paginatedParam(PaginatedParam.builder().page(page).size(size).build()).build());
-        return AppResponse.initRespose(HttpStatus.OK, true, "Find user sucess", res);
-    }
-
+   
 }

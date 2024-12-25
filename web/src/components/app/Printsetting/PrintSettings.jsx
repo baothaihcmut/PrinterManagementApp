@@ -1,7 +1,6 @@
 
 import  { useState } from 'react';
 import Nav from '../../layout/Nav';
-import imageHcmut from '../../../../public/images/HCMUT-BachKhoa-logo.png';
 import { useNavigate } from 'react-router-dom';
 import { useTransactionStore } from './PrintTransactionStore';
 
@@ -65,7 +64,6 @@ const PrintSettings = () => {
             <div className="preview">
               <div className="preview-label">Xem trước</div>
               <div className={`preview-box ${selectedFile.isLandscape?'ngang':'doc'}`} />
-              <img className="preview-logo" src={imageHcmut} alt="Logo" />
             </div>
 
             {/* Phần Thiết lập Thông số */}

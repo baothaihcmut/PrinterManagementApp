@@ -36,7 +36,13 @@ public class SecurityConfig {
     @Value("${jwt.access_token.sign_key}")
     private String signerKey;
 
-    private static final String[] PUBLIC_ENDPOINTS = { "/auth/exchangeToken", "/auth/refresh", "/auth/outbound/authentication", "/payment/create", "/payment/check-status", "/payment/callback" };
+    private static final String[] PUBLIC_ENDPOINTS = {
+        "/auth/exchangeToken", 
+        "/auth/refresh", 
+        "/auth/outbound/authentication", 
+        "/payment/create", "/payment/check-status", 
+        "/payment/callback" 
+    };
 
     @Autowired
     private final AccessDeniedHandler accessDeniedHandler;
@@ -50,6 +56,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(requests -> requests
                 .requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS).permitAll()
+                .requestMatchers(HttpMethod.GET,"/actuator/prometheus").permitAll()
                 .anyRequest().authenticated());
 
         http.oauth2ResourceServer(oauth2 -> oauth2
